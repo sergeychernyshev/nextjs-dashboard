@@ -1,39 +1,56 @@
+import {
+  BanknotesIcon,
+  ClockIcon,
+  UserGroupIcon,
+  InboxIcon,
+} from '@heroicons/react/24/outline';
+
+import { lusitana } from '@/app/ui/fonts';
+
 // Loading animation
 const shimmer =
   'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
 
-export function CardSkeleton() {
+const iconMap = {
+  collected: BanknotesIcon,
+  customers: UserGroupIcon,
+  pending: ClockIcon,
+  invoices: InboxIcon,
+};
+
+export function CardSkeleton({
+  title,
+  type,
+}: {
+  title: string;
+  type: 'invoices' | 'customers' | 'pending' | 'collected';
+}) {
+  const Icon = iconMap[type];
+
   return (
     <div
-      className={`${shimmer} relative overflow-hidden rounded-xl bg-gray-100 p-2 shadow-sm`}
+      className={`relative overflow-hidden rounded-xl bg-gray-100 p-2 shadow-sm`}
     >
       <div className="flex p-4">
-        <div className="h-5 w-5 rounded-md bg-gray-200" />
-        <div className="ml-2 h-6 w-16 rounded-md bg-gray-200 text-sm font-medium" />
+        {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
+        <h3 className="ml-2 text-sm font-medium">{title}</h3>
       </div>
-      <div className="flex items-center justify-center truncate rounded-xl bg-white px-4 py-8">
-        <div className="h-7 w-20 rounded-md bg-gray-200" />
+      <div
+        className={`flex items-center justify-center truncate rounded-xl bg-white px-4 py-8`}
+      >
+        <div className={`${shimmer} h-7 w-20 rounded-md bg-gray-200`} />
       </div>
     </div>
   );
 }
 
-export function CardsSkeleton() {
-  return (
-    <>
-      <CardSkeleton />
-      <CardSkeleton />
-      <CardSkeleton />
-      <CardSkeleton />
-    </>
-  );
-}
-
 export function RevenueChartSkeleton() {
   return (
-    <div className={`${shimmer} relative w-full overflow-hidden md:col-span-4`}>
-      <div className="mb-4 h-8 w-36 rounded-md bg-gray-100" />
-      <div className="rounded-xl bg-gray-100 p-4">
+    <div className={`relative w-full overflow-hidden md:col-span-4`}>
+      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Recent Revenue
+      </h2>
+      <div className={`${shimmer}rounded-xl bg-gray-100 p-4`}>
         <div className="mt-0 grid h-[410px] grid-cols-12 items-end gap-2 rounded-md bg-white p-4 sm:grid-cols-13 md:gap-4" />
         <div className="flex items-center pb-2 pt-6">
           <div className="h-5 w-5 rounded-full bg-gray-200" />
@@ -62,10 +79,14 @@ export function InvoiceSkeleton() {
 export function LatestInvoicesSkeleton() {
   return (
     <div
-      className={`${shimmer} relative flex w-full flex-col overflow-hidden md:col-span-4`}
+      className={`relative flex w-full flex-col overflow-hidden md:col-span-4`}
     >
-      <div className="mb-4 h-8 w-36 rounded-md bg-gray-100" />
-      <div className="flex grow flex-col justify-between rounded-xl bg-gray-100 p-4">
+      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Latest Invoices
+      </h2>
+      <div
+        className={`${shimmer} flex grow flex-col justify-between rounded-xl bg-gray-100 p-4`}
+      >
         <div className="bg-white px-6">
           <InvoiceSkeleton />
           <InvoiceSkeleton />
@@ -85,14 +106,14 @@ export function LatestInvoicesSkeleton() {
 export default function DashboardSkeleton() {
   return (
     <>
-      <div
-        className={`${shimmer} relative mb-4 h-8 w-36 overflow-hidden rounded-md bg-gray-100`}
-      />
+      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Dashboard
+      </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
+        <CardSkeleton title="Collected" type="collected" />
+        <CardSkeleton title="Pending" type="pending" />
+        <CardSkeleton title="Total Invoices" type="invoices" />
+        <CardSkeleton title="Total Customers" type="customers" />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
         <RevenueChartSkeleton />
