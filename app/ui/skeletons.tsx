@@ -103,18 +103,24 @@ export function LatestInvoicesSkeleton() {
   );
 }
 
+export function CardsSkeleton() {
+  return (
+    <>
+      <CardSkeleton title="Collected" type="collected" />
+      <CardSkeleton title="Pending" type="pending" />
+      <CardSkeleton title="Total Invoices" type="invoices" />
+      <CardSkeleton title="Total Customers" type="customers" />
+    </>
+  );
+}
+
 export default function DashboardSkeleton() {
   return (
     <>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <CardSkeleton title="Collected" type="collected" />
-        <CardSkeleton title="Pending" type="pending" />
-        <CardSkeleton title="Total Invoices" type="invoices" />
-        <CardSkeleton title="Total Customers" type="customers" />
-      </div>
+      <CardsSkeleton />
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
         <RevenueChartSkeleton />
         <LatestInvoicesSkeleton />
