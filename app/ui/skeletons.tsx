@@ -48,7 +48,7 @@ export function RevenueChartSkeleton() {
   return (
     <div className={`relative w-full overflow-hidden md:col-span-4`}>
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        *** Recent Revenue ***
+        Recent Revenue
       </h2>
       <div className={`${shimmer}rounded-xl bg-gray-100 p-4`}>
         <div className="mt-0 grid h-[410px] grid-cols-12 items-end gap-2 rounded-md bg-white p-4 sm:grid-cols-13 md:gap-4" />
